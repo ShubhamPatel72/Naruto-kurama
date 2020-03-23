@@ -1,0 +1,150 @@
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+int check(int A[])
+{ int s=0;
+  int j,a;
+  for(j=0,a=0;j<7,a<3;j=j+3,a++)
+  {
+      if((A[j]==A[j+1])&&(A[j]==A[j+2]))
+      {
+        if(A[j]!=0)
+        {
+            s=A[j];
+        }
+      }
+      else if((A[a]==A[a+3])&&(A[a]==A[a+6]))
+      {
+         if(A[a]!=0)
+        {
+            s=A[a];
+        }
+      }
+  }
+  if((A[0]==A[4])&&(A[0]==A[8]))
+  {
+      if(A[0]!=0)
+        {
+            s=A[0];
+        }
+  }
+  if((A[2]==A[4])&&(A[4]==A[6]))
+  {
+      if(A[2]!=0)
+        {
+            s=A[2];
+        }
+  }
+  return s;
+}
+
+void structure(int A[])
+{   int i,j,a1,x,b;
+    system ("CLS");
+    cout<<"\n\n\n\t\t\t\t\t";
+    for(i=0,a1=0;i<5;i++)
+    {   cout<<"\n\t";
+        for(j=0,b=a1;j<5;j++)
+        {
+           if(i%2!=0)
+           {
+
+                cout<<"-";
+            }
+            else
+            {
+               if(j%2!=0)
+               {
+                   cout<<"|";
+               }
+               else if(A[b]==0)
+               {
+                   cout<<b+1;
+                   b++;
+               }
+               else
+               {   if(A[b]==1)
+                    cout<<"O";
+                   else
+                    cout<<"X";
+                   b++;
+               }
+
+            }
+        }
+        if(i%2==0)
+        {
+            a1=a1+3;
+        }
+
+    }
+}
+
+int main()
+{   int p,item,m,t;
+    m=0;
+    t=0;
+    int A[9];
+    for(int i=0;i<9;i++)
+    {
+        A[i]=0;
+    }
+    cout<<"\n \t 2 PLAYER GAME \n PLAYERS HAVE TO PRESS NUMBER KEY IN WHICH THEY WANT TO DRAW \n\n 1 PLAYER SYMBOL IS O AND AND 2 PLAYER'S X ";
+    cout<<"\n\t1|2|3\n\t-----\n\t4|5|6\n\t-----\n\t7|8|9\n";
+    p=1;
+    AA:
+    if(t<9)
+    {
+        cout<<"\n"<<p<<" player choose number to play :  ";
+        cin>>item;
+        item=item-1;
+        if(A[item]!=0)
+        {
+            cout<<"\n INVALID MOVE";
+            goto AA;
+        }
+        else
+        {
+
+            if(p==1)
+            {
+                A[item]=1;
+                p=2;
+                structure(A);
+                m=check(A);
+                if(m!=0)
+                {
+                    cout<<"\n\n   "<<m<<" PLAYER IS WINNER \n";
+                }
+                else
+                {
+                    t=t+1;
+                    goto AA;
+                }
+            }
+            else
+            {
+                A[item]=2;
+                p=1;
+                structure(A);
+                m=check(A);
+                if(m!=0)
+                {
+                    cout<<"\n\n   "<<m<<" PLAYER IS WINNER \n";
+                }
+                else
+                {
+                    t=t+1;
+                    goto AA;
+                }
+            }
+        }
+
+    }
+    else
+    {
+        cout<<"\n\n\t Match is Draw \n";
+    }
+    return 0;
+}
